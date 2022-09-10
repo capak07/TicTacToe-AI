@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="GradleMigrationSettings" migrationVersion="1" />
+  <component name="GradleSettings">
+    <option name="linkedExternalProjectsSettings">
+      <GradleProjectSettings>
+        <option name="delegatedBuild" value="false" />
+        <option name="testRunner" value="GRADLE" />
+        <option name="distributionType" value="WRAPPED" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/Tic-Tac-Toe with AI/task" />
+            <option value="$PROJECT_DIR$/Tic-Tac-Toe with AI/task/build/classes/java" />
+            <option value="$PROJECT_DIR$/Tic-Tac-Toe with AI/task/build/generated/sources/annotationProcessor/java" />
+            <option value="$PROJECT_DIR$/Tic-Tac-Toe with AI/task/build/generated/sources/headers/java" />
+            <option value="$PROJECT_DIR$/Tic-Tac-Toe with AI/task/build/reports/tests" />
+            <option value="$PROJECT_DIR$/Tic-Tac-Toe with AI/task/build/test-results" />
+            <option value="$PROJECT_DIR$/Tic-Tac-Toe with AI/task/build/tmp" />
+            <option value="$PROJECT_DIR$/Topics/Abstract class/IntBinaryOperation" />
+            <option value="$PROJECT_DIR$/Topics/Abstract class/Shape hierarchy" />
+            <option value="$PROJECT_DIR$/Topics/Abstract class/Theory" />
+            <option value="$PROJECT_DIR$/Topics/Abstract class/Users and WebSites" />
+            <option value="$PROJECT_DIR$/Topics/Conditional statement/Queens" />
+            <option value="$PROJECT_DIR$/Topics/Conditional statement/Theory" />
+            <option value="$PROJECT_DIR$/Topics/Interface/Area of a circle" />
+            <option value="$PROJECT_DIR$/Topics/Interface/Mutable geometric shapes" />
+            <option value="$PROJECT_DIR$/Topics/Interface/Theory" />
+            <option value="$PROJECT_DIR$/Topics/The while and do-while loops/Profit" />
+            <option value="$PROJECT_DIR$/Topics/The while and do-while loops/Theory" />
+            <option value="$PROJECT_DIR$/util" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+    </option>
+  </component>
+</project>
