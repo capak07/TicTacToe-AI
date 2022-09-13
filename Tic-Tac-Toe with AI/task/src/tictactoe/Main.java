@@ -2,13 +2,158 @@ package tictactoe;
 import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
+import java.util.ArrayList;
+
 
 public class Main {
+
+    public static String X_WIN;
+    public static String O_WIN;
+    public static String DRAW;
+    
+
+    public static class CellState {
+        public String value;
+
+        public CellState(String value) {
+            this.value = value;
+        }
+
+        public CellState getOpponent() {
+            if (this.value.equals("X")) {
+                return new CellState("O");
+            } else {
+                return new CellState("X");
+            }
+        }
+
+        public String getValue() {
+            return value;
+        }
+    }
+
+    public static class Position {
+
+        int x;
+        int y;
+    
+        public Position(int x, int y) {
+            this.x = x;
+            this.y = y;
+        }
+    
+        @Override
+        public String toString() {
+            return x + " " + y;
+        }
+    
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            Position position = (Position) o;
+            return x == position.x &&
+                y == position.y;
+        }
+    }
+
     public static final String[][] grid = {
             {" ", " ", " "},
             {" ", " ", " "},
             {" ", " ", " "}
     };
+
+    public static CellState Ostate = new CellState("O");
+    public static Minimax minimax = new Minimax();
+
+    public static String getGameState() {
+        if ((grid[0][0].equals(grid[0][1]) && grid[0][0].equals(grid[0][2])) && !grid[0][0].equals(" ")) {
+            if (grid[0][0].equals("X")) {
+                return "X_WIN";
+            } else if (grid[0][0].equals("O")) {
+                return "O_WIN";
+            }
+            else {
+                return "DRAW";
+            }
+            
+        } else if ((grid[1][0].equals(grid[1][1]) && grid[1][0].equals(grid[1][2])) && !grid[1][0].equals(" ")) {
+            if (grid[0][0].equals("X")) {
+                return "X_WIN";
+            } else if (grid[0][0].equals("O")) {
+                return "O_WIN";
+            }
+            else {
+                return "DRAW";
+            }
+           
+        } else if ((grid[2][0].equals(grid[2][1]) && grid[2][0].equals(grid[2][2])) && !grid[2][0].equals(" ")) {
+            if (grid[0][0].equals("X")) {
+                return "X_WIN";
+            } else if (grid[0][0].equals("O")) {
+                return "O_WIN";
+            }
+            else {
+                return "DRAW";
+            }
+           
+        } else if ((grid[0][0].equals(grid[1][0]) && grid[0][0].equals(grid[2][0])) && !grid[0][0].equals(" ")) {
+            if (grid[0][0].equals("X")) {
+                return "X_WIN";
+            } else if (grid[0][0].equals("O")) {
+                return "O_WIN";
+            }
+            else {
+                return "DRAW";
+            }
+            
+        } else if ((grid[0][1].equals(grid[1][1]) && grid[0][1].equals(grid[2][1])) && !grid[0][1].equals(" ")) {
+            if (grid[0][0].equals("X")) {
+                return "X_WIN";
+            } else if (grid[0][0].equals("O")) {
+                return "O_WIN";
+            }
+            else {
+                return "DRAW";
+            }
+           
+        } else if ((grid[0][2].equals(grid[1][2]) && grid[0][2].equals(grid[2][2])) && !grid[0][2].equals(" ")) {
+            if (grid[0][0].equals("X")) {
+                return "X_WIN";
+            } else if (grid[0][0].equals("O")) {
+                return "O_WIN";
+            }
+            else {
+                return "DRAW";
+            }
+            
+        } else if ((grid[0][0].equals(grid[1][1]) && grid[0][0].equals(grid[2][2])) && !grid[0][0].equals(" ")) {
+            if (grid[0][0].equals("X")) {
+                return "X_WIN";
+            } else if (grid[0][0].equals("O")) {
+                return "O_WIN";
+            }
+            else {
+                return "DRAW";
+            }
+            
+        } else if ((grid[0][2].equals(grid[1][1]) && grid[0][2].equals(grid[2][0])) && !grid[0][2].equals(" ")) {
+            if (grid[0][0].equals("X")) {
+                return "X_WIN";
+            } else if (grid[0][0].equals("O")) {
+                return "O_WIN";
+            }
+            else {
+                return "DRAW";
+            }
+            
+        } else if (!grid[0][0].equals(" ") && !grid[0][1].equals(" ") && !grid[0][2].equals(" ") && !grid[1][0].equals(" ") && !grid[1][1].equals(" ") && !grid[1][2].equals(" ") && !grid[2][0].equals(" ") && !grid[2][1].equals(" ") && !grid[2][2].equals(" ")) {
+            return "DRAW";
+          
+        }
+        return "NOT_FINISHED";
+
+    }
 
     public static void check(String[][] grid) {
         if ((grid[0][0].equals(grid[0][1]) && grid[0][0].equals(grid[0][2])) && !grid[0][0].equals(" ")) {
@@ -48,6 +193,61 @@ public class Main {
             System.out.println("Draw");
             System.exit(0);
         }
+    }
+
+    public static class Minimax {
+
+        public Position bestPosition;
+    
+        public Position getMove(String[][] grid, CellState player) {
+    
+            int bestScore = Integer.MIN_VALUE;
+            CellState opponent = player.getOpponent();
+            for (int i = 0; i < 3; i++) {
+                for (int j = 0; j < 3; j++) {
+                    if (grid[i][j] == " ") {
+                        grid[i][j] = player.value;
+                        int score = minimax(grid, opponent, false, player, 1);
+                        grid[i][j] = " ";
+                        if (score > bestScore) {
+                            bestScore = score;
+                            bestPosition = new Position(i, j);
+                        }
+                    }
+                }
+            }
+    
+            return bestPosition;
+        }
+    
+        public int minimax(String[][] grid, CellState player, boolean isMaximize, CellState startPlayer, int depth) {
+    
+            switch (getGameState()) {
+                case "X_WIN":
+                    return startPlayer.equals("X") ? 10 - depth : depth - 10;
+                case "O_WIN":
+                    return startPlayer.equals("O")? 10 - depth : depth - 10;
+                case "DRAW":
+                    return 0;
+            }
+    
+            int bestScore = isMaximize ? Integer.MIN_VALUE : Integer.MAX_VALUE;
+    
+            for (int i = 0; i < 3; i++) {
+                for (int j = 0; j < 3; j++) {
+                    if (grid[i][j] == " ") {
+                        grid[i][j]  = player.getValue();
+
+                        int score = minimax(grid, player.getOpponent(), !isMaximize, startPlayer, depth + 1);
+                        grid[i][j]  = " ";
+                        bestScore = isMaximize ? Math.max(bestScore, score) : Math.min(bestScore, score);
+                    }
+                }
+            }
+    
+            return bestScore;
+        }
+    
     }
 
     static final String[] stateOne = new String[]{"X", "X", " "};
@@ -486,26 +686,17 @@ public class Main {
 
     public static void AIHardMakeMove(){
         System.out.println("Making move level \"hard\"");
-        int x=0;
-        int y=0;
-        int score = 1000;
-        for (int i=0;i<3;i++){
-            for (int j=0;j<3;j++){
-                if (grid[i][j].equals(" ")){
-                    grid[i][j] = "O";
-                    int bestScore = minimax(grid,0,true);
-                    grid[i][j] = " ";
-                    if (score>bestScore){
-                        score = bestScore;
-                        x=i;
-                        y=j;
-                    }
-                }
-            }
-        }
+        
+        Position position = minimax.getMove(grid, Ostate);
+        System.out.println(position.toString());
 
-        grid[x][y] = "X";
-        check(grid);
     }
+
+    public static void AIHardNextMove() {
+
+    }
+
+
+
 
 }
